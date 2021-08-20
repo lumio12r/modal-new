@@ -309,7 +309,6 @@ input {
     .options {
         margin: .4rem 0 0 0;
         height: 35px;
-        padding: 10px 310px 10px 13px;
         font-size: .7rem;
     }
     .availablity_delivery, .availability, .delivery-box {
