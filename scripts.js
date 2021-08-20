@@ -99,6 +99,7 @@ function getPrice(jsonObject) {
                 decrease.disabled = true;
                 increase.classList.add('disabled');
                 decrease.classList.add('disabled');
+                counter_input.classList.add('disabled');
             } else {
                 button_submit.disabled = false;
                 counter_input.disabled = false;
@@ -107,6 +108,7 @@ function getPrice(jsonObject) {
                 decrease.disabled = false;
                 increase.classList.remove('disabled');
                 decrease.classList.remove('disabled');
+                counter_input.classList.remove('disabled');
                 increase.onclick = () => {
                     if (counter_input.value == stock) {
                         alert(`Maksymalny ilość produktu to: ${stock}`)
@@ -188,6 +190,7 @@ function changePrice (jsonObject, e) {
                     decrease.disabled = false;
                     increase.classList.remove('disabled');
                     decrease.classList.remove('disabled');
+                    counter_input.classList.remove('disabled');
                         increase.onclick = () => {
                             if (counter_input.value == stock) {
                                 alert(`Maksymalny ilość produktu to: ${stock}`)
