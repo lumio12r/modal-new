@@ -292,10 +292,10 @@ counter_input.addEventListener('input', function (e) {
 // funkcje odpowiadające za pojawianie i znikanie boxa z produktem
 
 btn.addEventListener('click', e => {
-        getJson('http://my-json-server.typicode.com/lumio12r/modal/product', createTitle);
-        getJson('http://my-json-server.typicode.com/lumio12r/modal/sizes', createButtons);
-        getJson('http://my-json-server.typicode.com/lumio12r/modal/sizes', getPrice);
-        getJson('http://my-json-server.typicode.com/lumio12r/modal/multiversions', createOptions);
+        getJson('https://my-json-server.typicode.com/lumio12r/modal-new/product', createTitle);
+        getJson('https://my-json-server.typicode.com/lumio12r/modal-new/sizes', createButtons);
+        getJson('https://my-json-server.typicode.com/lumio12r/modal-new/sizes', getPrice);
+        getJson('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions', createOptions);
 }, {once: true});
 btn.addEventListener('click', e => {
     if (modal.classList.contains('no-visible')){
@@ -309,10 +309,10 @@ btn.addEventListener('click', e => {
             getJson('http://my-json-server.typicode.com/lumio12r/modal/sizes', changePrice, e)
         });*/
 sizeContainer.addEventListener('click', e => {
-    getJson('http://my-json-server.typicode.com/lumio12r/modal/sizes', changePrice, e);
+    getJson('https://my-json-server.typicode.com/lumio12r/modal-new/sizes', changePrice, e);
 });
 options.addEventListener('click', e => {
-    getJson('http://my-json-server.typicode.com/lumio12r/modal/multiversions', changeColor, e);
+    getJson('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions', changeColor, e);
 });
 previous_photo.addEventListener('click', e => {
     let current_photo = current_set.querySelector('.current-photo');
