@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html lang="pl-PL">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Product Box</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./styles.css">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <button class="btn">Click me</button>
+        <div class="modal no-visible">
+        <div class="product-box-body">
+            <div class="product-box">
+                <div class="close-area">
+                    <span class="close-mobile">&times;</span>
+                </div>
+                <div class="img-box">
+                    <i class="fas fa-angle-left"></i>
+                    <div class="photo-box">
+                    </div>
+                    <i class="fas fa-angle-right"></i>
+                </div>
+                <div class="content">
+                    <div class="product-name">
+                        <h2 class="title"></h2>
+                        <span class="close">&times;</span>
+                    </div>
+                    <div class="price-area">
+                        <p class="price"></p>
+                    </div>
+                    <div class="sizes">
+                        <p class="size">Rozmiar: </p>
+                        <div class="size-container"></div>
+                    </div>
+                    <div class="colors">
+                        <p class="color">Wariant: </p>
+                        <select class="options"></select>
+                    </div>
+                    <div class="availablity_delivery">
+                        <div class="availability">
+                            <span class="icon"><i class="fas icon-available"></i></span><p class="available"></p>
+                        </div>
+                        <div class="delivery-box">
+                            <div class="icon-delivery">
+                                <img src="./resources/delivery-time-tool.svg">
+                            </div>
+                            <div class="delivery-info">
+                                <p>Możemy wysłać już dzisiaj!</p>
+                                <a href="https://google.com" class="delivery-time">Sprawdź czasy i koszty wysyłki</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="counter_submit">
+                        <div class="counter_area">
+                                <button class="minus"><i class="fas fa-minus"></i></button>
+                                <input class="input-counter" type="text" value="1"/>
+                                <button class="plus"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="submit_area">
+                            <button class="submit">Dodaj do koszyka</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+        
+        <script src="./scripts.js" async defer></script>
+    </body>
+</html>
