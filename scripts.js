@@ -172,6 +172,7 @@ function changePrice (jsonObject, e) {
                     decrease.disabled = true;
                     increase.classList.add('disabled');
                     decrease.classList.add('disabled');
+                    counter_input.classList.add('disabled');
                     if (delivery_box.classList.contains('no-visible')) {
                         delivery_box.classList.remove('no-visible');
                     }
