@@ -363,6 +363,7 @@ input {
     }
     .modal {
         height: 100vh;
+        position: fixed;
     }
     .close-area {
         display: none;
