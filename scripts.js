@@ -268,9 +268,9 @@ function changeColor (Array, e) {
             parent.push(item);
         }
         for (let i = 0; i < parent.length; i++) {
-            console.log('hi');
             for (let product of object.items[parent[i]].products) {
-                console.log('hey');
+                console.log(options.children[i]);
+                console.log(e.target);
                 if (options.children[i] == e.target ) {
                     console.log('may');
                     let difference = parseFloat(product.price_difference);
