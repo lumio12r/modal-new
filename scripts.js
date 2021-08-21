@@ -193,7 +193,7 @@ function changePrice (jsonObject, e) {
                     counter_input.classList.remove('disabled');
                         increase.onclick = () => {
                             if (counter_input.value == stock) {
-                                alert(`Maksymalny ilość produktu to: ${stock}`)
+                                alert(`Maksymalny ilość produktu to: ${stock}`);
                             } else {
                                 counter_input.value++;
                             }
@@ -285,7 +285,7 @@ function changeColor (Array, e) {
             }
         }
     }
-    }
+    }}
 
 
 counter_input.addEventListener('input', function (e) {
@@ -334,7 +334,7 @@ next_photo.addEventListener('click', e => {
     current_photo.classList.remove('current-photo');
     try {
         current_photo.nextSibling.classList.add('current-photo');
-    } catch {
+    } catch (error){
         current_set.firstChild.classList.add('current-photo');
     }
 });
