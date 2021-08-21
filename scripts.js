@@ -353,6 +353,3 @@ window.onclick = e => {
         }
     }
 };
-
-
-
