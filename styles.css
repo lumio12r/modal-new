@@ -361,6 +361,9 @@ input {
         font-size: 2rem;
         padding: 2rem 4rem;
     }
+    .modal {
+        height: 100vh;
+    }
     .close-area {
         display: none;
     }
