@@ -149,6 +149,9 @@ function changePrice (jsonObject, e) {
                 stock = jsonObject.items[parent[i]].amount;
                 status = jsonObject.items[parent[i]].status;
                 price.innerText = basePrice + ".00" + " zł";
+                options[0].selected = true;
+                current_set.classList.remove('current-set');
+                photo_box.children[0].classList.add("current-set");
                 if (icon.classList.contains('fa-times')) {
                     icon.classList.remove('fa-times');
                     if (status == "Produkt niedostępny") {
