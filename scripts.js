@@ -268,8 +268,11 @@ function changeColor (Array, e) {
             parent.push(item);
         }
         for (let i = 0; i < parent.length; i++) {
+            console.log('hi');
             for (let product of object.items[parent[i]].products) {
+                console.log('hey');
                 if (options.children[i] == e.target ) {
+                    console.log('may');
                     let difference = parseFloat(product.price_difference);
                     current.classList.remove("current-set");
                     current_set = color_version[i];
@@ -285,7 +288,7 @@ function changeColor (Array, e) {
             }
         }
     }
-    }}
+    }};
 
 
 counter_input.addEventListener('input', function (e) {
