@@ -270,13 +270,11 @@ function changeColor (Array, e) {
         for (let i = 0; i < parent.length; i++) {
             for (let product of object.items[parent[i]].products) {
                 if (options.children[i] == e.target.children[i] ) {
+                    console.log(e.target.children[i]);
                     let difference = parseFloat(product.price_difference);
                     current.classList.remove("current-set");
-                    console.log(current);
-                    current_set = e.target.children[i];
-                    console.log(current_set);
+                    current_set = color_version[i];
                     current_set.classList.add("current-set");
-                    console.log(current_set);
                     if (difference === 0) {
                         price.innerText = basePrice + ".00 zł";
                     } else {
