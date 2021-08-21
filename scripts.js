@@ -269,8 +269,7 @@ function changeColor (Array, e) {
         }
         for (let i = 0; i < parent.length; i++) {
             for (let product of object.items[parent[i]].products) {
-                if (options.children[i] == e.target.children[i] ) {
-                    console.log(e.target.children[i]);
+                if (e.target.children[i].selected == true) {
                     let difference = parseFloat(product.price_difference);
                     current.classList.remove("current-set");
                     current_set = color_version[i];
@@ -322,7 +321,8 @@ options.addEventListener('click', e => {
 previous_photo.addEventListener('click', e => {
     let current_photo = current_set.querySelector('.current-photo');
     current_photo.classList.remove('current-photo');
-    console.log(current_set);
+    
+    (current_set);
     if (current_photo.previousSibling === null) {
         current_set.lastChild.classList.add('current-photo');
     }
