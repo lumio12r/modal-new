@@ -74,7 +74,6 @@ function getPrice(jsonObject) {
         parent.push(item);
     }
     for (let i = 0; i < parent.length; i++) {
-        console.log(sizeContainer.children[i]);
         if (sizeContainer.children[i].classList.contains('active')) {
             option = sizeContainer.children[i].innerText;
             option = option.slice(4).replace(/\s/g, '');
