@@ -78,7 +78,7 @@ function getPrice(jsonObject) {
         if (sizeContainer.children[i].classList.contains('active')) {
             option = sizeContainer.children[i].innerText;
             option = option.slice(4).replace(/\s/g, '');
-            let toReplace = title.slice(29,-10)
+            let toReplace = title.slice(29,-10);
             title = title.replace(toReplace, option);
             titleOnPage.innerText = title;
             basePrice = jsonObject.items[parent[i]].price;
@@ -111,18 +111,18 @@ function getPrice(jsonObject) {
                 counter_input.classList.remove('disabled');
                 increase.onclick = () => {
                     if (counter_input.value == stock) {
-                        alert(`Maksymalny ilość produktu to: ${stock}`)
+                        alert(`Maksymalny ilość produktu to: ${stock}`);
                     } else {
                         counter_input.value++;
                     }
-                }
+                };
                 decrease.onclick = () => {
                     if (counter_input.value <= 1) {
                         alert('Liczba nie może być równa lub mniejsza niż zero');
                     } else {
                         --counter_input.value;
                     }
-                }
+                };
             }
         }
     }
@@ -143,7 +143,7 @@ function changePrice (jsonObject, e) {
                 e.target.classList.add('active');
                 option = sizeContainer.children[i].innerText;
                 option = option.slice(4).replace(/\s/g, '');
-                let toReplace = title.slice(29,-10)
+                let toReplace = title.slice(29,-10);
                 title = title.replace(toReplace, option);
                 titleOnPage.innerText = title;
                 basePrice = jsonObject.items[parent[i]].price;
@@ -197,14 +197,14 @@ function changePrice (jsonObject, e) {
                             } else {
                                 counter_input.value++;
                             }
-                        }
+                        };
                         decrease.onclick = () => {
                             if (counter_input.value <= 1) {
                                 alert('Liczba nie może być równa lub mniejsza niż zero');
                             } else {
                                 --counter_input.value;
                             }
-                        }
+                        };
                     if (delivery_box.classList.contains('no-visible')) {
                         delivery_box.classList.remove('no-visible');
                     }
@@ -268,27 +268,24 @@ function changeColor (Array, e) {
             parent.push(item);
         }
         for (let i = 0; i < parent.length; i++) {
-            for (let product of object.items[parent[i]].products)
-            if (options.children[i] == e.target ) {
-                console.log('hey');
-                let difference = parseFloat(product.price_difference);
-                current.classList.remove("current-set");
-                console.log(current);
-                current_set = color_version[i];
-                console.log(current_set);
-                current_set.classList.add("current-set");
-                 console.log(current_set);
-                if (difference === 0) {
-                    price.innerText = basePrice + ".00 zł";
-                } else {
-                    let newPrice = basePrice + difference;
-                    price.innerText = newPrice + ".00 zł";
+            for (let product of object.items[parent[i]].products) {
+                if (options.children[i] == e.target ) {
+                    let difference = parseFloat(product.price_difference);
+                    current.classList.remove("current-set");
+                    current_set = color_version[i];
+                    console.log(current_set);
+                    current_set.classList.add("current-set");
+                    console.log(current_set);
+                    if (difference === 0) {
+                        price.innerText = basePrice + ".00 zł";
+                    } else {
+                        let newPrice = basePrice + difference;
+                        price.innerText = newPrice + ".00 zł";
                 }
             }
         }
     }
 
-}
 
 counter_input.addEventListener('input', function (e) {
     if(counter_input.value > stock) {
@@ -311,7 +308,7 @@ btn.addEventListener('click', e => {
         modal.classList.add("visible");
     }
     counter_input.value = 1;
-})
+});
 /* alternatywna wersja do tej ^
         document.addEventListener('mouseover', e => {
             getJson('http://my-json-server.typicode.com/lumio12r/modal/sizes', changePrice, e)
@@ -327,7 +324,7 @@ previous_photo.addEventListener('click', e => {
     current_photo.classList.remove('current-photo');
     console.log(current_set);
     if (current_photo.previousSibling === null) {
-        current_set.lastChild.classList.add('current-photo')
+        current_set.lastChild.classList.add('current-photo');
     }
     current_photo.previousSibling.classList.add('current-photo');
 });
