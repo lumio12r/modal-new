@@ -6,9 +6,9 @@ Okno prezentuje informacje o produkcie z następującymi funkcjonalnościami / z
 - Pop-up ma być wyśrodkowany względem okna przeglądarki.
 - Lewa część to galeria zdjęć z opcją przełączaniem się między zdjęciami.
 - Prawa część to formularz zakupowy.
-W ramach opcji wyboru: wybór rozmiaru i wariantu kolorystycznego.
-Rozmiary mają różne stany magazynowe - zaprezentuj ich aktualizację przy zmianie opcji wyboru rozmiaru
-Kliknięcie „Dodaj do koszyka" wysyła formularz (sposób rozwiązania dowolny)
+    - W ramach opcji wyboru: wybór rozmiaru i wariantu kolorystycznego.
+    - Rozmiary mają różne stany magazynowe - zaprezentuj ich aktualizację przy zmianie opcji wyboru rozmiaru
+    - Kliknięcie „Dodaj do koszyka" wysyła formularz (sposób rozwiązania dowolny)
 (*) Zastosuj mechanizm cache dla pobranych danych
 (*) Zmiana wariantu - koloru zmienia zdjęcia w galerii po lewej stronie oraz wpływa na zmianę cen
 Założenia do wykonania zadania:
