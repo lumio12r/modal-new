@@ -269,13 +269,11 @@ function changeColor (Array, e) {
         }
         for (let i = 0; i < parent.length; i++) {
             for (let product of object.items[parent[i]].products) {
-                console.log(options.children[i]);
-                console.log(e.target);
                 if (options.children[i] == e.target.children[i] ) {
-                    console.log('may');
                     let difference = parseFloat(product.price_difference);
                     current.classList.remove("current-set");
-                    current_set = color_version[i];
+                    console.log(current);
+                    current_set = e.target.children[i];
                     console.log(current_set);
                     current_set.classList.add("current-set");
                     console.log(current_set);
