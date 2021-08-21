@@ -285,6 +285,7 @@ function changeColor (Array, e) {
             }
         }
     }
+    }
 
 
 counter_input.addEventListener('input', function (e) {
@@ -343,7 +344,7 @@ close.onclick = () => {
 };
 close_mobile.onclick = () => {
     modal.classList.add("no-visible");
-}
+};
 
 window.onclick = e => {
     if (modal.classList.contains("visible")){
