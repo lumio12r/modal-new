@@ -271,7 +271,7 @@ function changeColor (Array, e) {
             for (let product of object.items[parent[i]].products) {
                 console.log(options.children[i]);
                 console.log(e.target);
-                if (options.children[i] == e.target ) {
+                if (options.children[i] == e.target.children[i] ) {
                     console.log('may');
                     let difference = parseFloat(product.price_difference);
                     current.classList.remove("current-set");
