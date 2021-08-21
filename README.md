@@ -11,6 +11,7 @@ Okno prezentuje informacje o produkcie z następującymi funkcjonalnościami / z
     - Kliknięcie „Dodaj do koszyka" wysyła formularz (sposób rozwiązania dowolny)
     - (*) Zastosuj mechanizm cache dla pobranych danych
     - (*) Zmiana wariantu - koloru zmienia zdjęcia w galerii po lewej stronie oraz wpływa na zmianę cen
+
 Założenia do wykonania zadania:
 - Okno pop-up musi dostosowywać się do różnych urządzeń (RWD, „Mobile-First")
 - Pixel-Perfect - odwzorowanie projektu 1:1 (quickcart,xd)
