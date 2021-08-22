@@ -25,6 +25,7 @@ const previous_photo = document.querySelector('.fa-angle-left');
 const next_photo = document.querySelector('.fa-angle-right');
 const increase = document.querySelector('.plus');
 const decrease = document.querySelector('.minus');
+const form = document.querySelector('form');
 
 // deklaracja zmiennych globalnych
 
@@ -383,3 +384,8 @@ window.onclick = (e) => {
     }
   }
 };
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+});
+
