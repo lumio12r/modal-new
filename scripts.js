@@ -240,44 +240,43 @@ function changePrice(jsonObject, e) {
  * Tworzy znaczniki option dla selecta
  * @param {*} Array Tablica strinówg
  */
-function createOptions(Array) {
-const id = [];
-  // Wyciąga kazdą wersje osobno
-  for (let object of Array) {
-    const parent = Object.values(object.items);
-    console.log(parent);
-    
-    // Dla kadej wersji dodanej do tablicy, tworzy opcję i dodajemy zdjecia
-    for (let i = 0; i < parent.length; i++) {
-      id.push(parent[i].values_id);
-      console.log(parent[i].values.[id[i]].name);
-      let option = document.createElement('option');
-      let set = document.createElement('picture');
-      set.classList.add('set');
-      if (i === 0) {
-        set.classList.add('current-set');
-        current_set = set;
-      }
-      for (let product of parent[i].products) {
-        for (let o = 0; o < product.images.length; o++) {
-          let img = document.createElement('img');
-          img.setAttribute('src', product.images[o].url);
-          img.setAttribute('alt', product.images[o].alt);
-          img.classList.add('photo');
-          if (o === 0) {
-            img.classList.add('current-photo');
-          }
-          set.appendChild(img);
+function createOptions (Array) {
+    let parent = [];
+    let id = [];
+    for (let object of Array) {
+        for (let item in object.items) {
+            parent.push(item);
         }
-        photo_box.appendChild(set);
-      }
-      option.innerText = name;
-      option.setAttribute('value', id[i]);
-      options.appendChild(option);
+        for (let i = 0; i < parent.length; i++) {
+            id.push(object.items[parent[i]].values_id);
+            let name = object.items[parent[i]].values[id[i]].name;
+            let option = document.createElement("option");
+            let set = document.createElement("div");
+            set.classList.add('set');
+            if (i === 0) {
+                set.classList.add('current-set');
+                current_set = set;
+            }
+            for (let product of object.items[parent[i]].products) {
+                    for (let o = 0; o < product.images.length; o++) {
+                        let img = document.createElement("img");
+                        img.setAttribute("src", product.images[o].url);
+                        img.setAttribute("alt", product.images[o].alt);
+                        img.classList.add('photo');
+                        if (o === 0) {
+                            img.classList.add('current-photo');
+                        }
+                        set.appendChild(img);
+                    }
+                    photo_box.appendChild(set);
+            }
+            option.innerText = name;
+            option.setAttribute("value", id[i]);
+            options.appendChild(option);
+        }
     }
-  }
-}
 
+}
 function changeColor(Array, e) {
   let parent = [];
   let current = document.querySelector('.current-set');
