@@ -251,6 +251,7 @@ const id = [];
     for (let i = 0; i < parent.length; i++) {
       id.push(parent[i].values_id);
       console.log(id);
+      console.log(parent[i].values.id[i]);
       let option = document.createElement('option');
       let set = document.createElement('picture');
       set.classList.add('set');
