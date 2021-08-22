@@ -515,7 +515,13 @@ input {
         justify-content: normal;
     }
     .delivery-info {
-        font-size: .8125rem;
+        font-size: 13px;
+    }
+    .delivery-info > p {
+        margin: 0 0 0 12px;
+    }
+    .delivery-info {
+        margin: 0 0 0 11px;
     }
     .counter_submit {
         margin: 1.25rem 0 0 0;
