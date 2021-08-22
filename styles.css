@@ -174,7 +174,7 @@
 .counter_area {
     display: flex;
 }
-.input[text] {
+.input[number] {
     border: none;
 }
 .counter_area {
@@ -404,6 +404,9 @@ input {
     .product-box-body {
         top: 0;
         padding: 1rem;
+    }
+    input[number] {
+        appearance: none;
     }
     input {
         width: 50%;
