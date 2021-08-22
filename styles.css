@@ -508,6 +508,9 @@ input {
         flex-wrap: nowrap;
         width: 100%;
     }
+    .delivery-box {
+        justify-content: normal;
+    }
     .delivery-info {
         font-size: .8125rem;
     }
