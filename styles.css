@@ -277,7 +277,7 @@ input {
     .modal {
         padding: 5%;
     }
-    .img-box > img{
+    .img-box > .photo-box{
         width: 60%;
     }
     .product-name .title{
