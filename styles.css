@@ -445,7 +445,7 @@ input {
         height: 100%;
         width: 100%;
     }
-    .content {
+    .product-box > .content {
         padding: 0;
         width: 369px;
     }
