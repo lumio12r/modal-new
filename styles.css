@@ -424,10 +424,10 @@ input {
     .product-box-body {
         width: 745px;
         height: 384px;
-        padding: 23px 19px 36px 40px;
+        padding: 0;
     }
     .product-box {
-        padding: 0;
+        padding: 23px 19px 36px 40px;
         height: 100%;
         width: 100%;
     }
