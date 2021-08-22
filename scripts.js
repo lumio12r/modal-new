@@ -245,11 +245,12 @@ const id = [];
   // Wyciąga kazdą wersje osobno
   for (let object of Array) {
     const parent = Object.values(object.items);
+    const id = Object.values(parent.values_id)
     console.log(parent);
     
     // Dla kadej wersji dodanej do tablicy, tworzy opcję i dodajemy zdjecia
     for (let i = 0; i < parent.length; i++) {
-      id.push(parent[i].values.value_id);
+      console.log(id);
       let name = parent[i].values[id[i]].name;
       let option = document.createElement('option');
       let set = document.createElement('picture');
