@@ -416,25 +416,6 @@ input {
     }
 }
 @media (min-width: 992px) {
-    .product-box-body {
-        padding: 5rem;
-    }
-    .content {
-        padding: 35px 30px;
-    }
-}
-@media (min-width: 1200px) {
-    .modal {
-        padding: 4rem;
-    }
-    .product-box-body {
-        padding: 10rem;
-    }
-    .content {
-        padding: 35px 40px;
-    }
-}
-@media (min-width: 1350px) {
    .modal {
         padding: 0;
     }
