@@ -245,9 +245,7 @@ const id = [];
   // Wyciąga kazdą wersje osobno
   for (let object of Array) {
     const parent = Object.values(object.items);
-    const id_new = Object.values(object.items.values.values_id);
-    console.log(id_new);
-    console.log(id);
+    console.log(parent);
     
     // Dla kadej wersji dodanej do tablicy, tworzy opcję i dodajemy zdjecia
     for (let i = 0; i < parent.length; i++) {
