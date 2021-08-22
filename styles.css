@@ -209,6 +209,11 @@ input {
 .submit:disabled {
     filter: grayscale(0.7);
 }
+.submit:hover:enabled {
+    background-color: #fff;
+    border: 2px solid #0090F6;
+    transition: 2s;
+}
 .submit_area {
     display: flex;
     width: 100%;
