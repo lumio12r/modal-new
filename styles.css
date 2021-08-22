@@ -262,6 +262,9 @@ input {
 .fa-angle-right {
     margin: 0 0 0 5px;
 }
+.fa-angle-left, .fa-angle-right {
+    width: 15px;
+}
 .minus, .plus {
     background-color: #fff;
     border: none;
