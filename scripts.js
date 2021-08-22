@@ -277,34 +277,33 @@ function createOptions (Array) {
     }
 
 }
-function changeColor(Array, e) {
-  let parent = [];
-  let current = document.querySelector('.current-set');
-  let color_version = document.querySelectorAll('.set');
+function changeColor (Array, e) {
+    let parent = [];
+    let current = document.querySelector(".current-set");
+    let color_version = document.querySelectorAll(".set");
 
-  for (let object of Array) {
-    for (let item in object.items) {
-      parent.push(item);
-    }
-    for (let i = 0; i < parent.length; i++) {
-      for (let product of object.items[parent[i]].products) {
-        if (e.target.children[i].selected == true) {
-          let difference = parseFloat(product.price_difference);
-          current.classList.remove('current-set');
-          current_set = color_version[i];
-          current_set.classList.add('current-set');
-          if (difference === 0) {
-            price.innerText = basePrice + '.00 zł';
-          } else {
-            let newPrice = basePrice + difference;
-            price.innerText = newPrice + '.00 zł';
-          }
+    for (let object of Array) {
+        for (let item in object.items) {
+            parent.push(item);
         }
-      }
+        for (let i = 0; i < parent.length; i++) {
+            for (let product of object.items[parent[i]].products)
+            if (options.children[i] == e.target ) {
+                let difference = parseFloat(product.price_difference);
+                current.classList.remove("current-set");
+                current_set = color_version[i];
+                current_set.classList.add("current-set");
+                if (difference === 0) {
+                    price.innerText = basePrice + ".00 zł";
+                } else {
+                    let newPrice = basePrice + difference;
+                    price.innerText = newPrice + ".00 zł";
+                }
+            }
+        }
     }
-  }
-}
 
+}
 counter_input.addEventListener('input', function (e) {
   if (counter_input.value > stock) {
     alert(`Maksymalna ilość produktu to: ${stock}`);
