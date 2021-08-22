@@ -220,6 +220,7 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 .visible-flex {
     display: flex;
