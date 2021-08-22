@@ -241,16 +241,18 @@ function changePrice(jsonObject, e) {
  * @param {*} Array Tablica strinówg
  */
 function createOptions(Array) {
-
+const id = [];
   // Wyciąga kazdą wersje osobno
   for (let object of Array) {
     const parent = Object.values(object.items);
-    const id = Object.values(parent.values.values_id);
+    const id_new = Object.values(object.items.values.values_id);
+    console.log(id_new);
     console.log(id);
-
+    
     // Dla kadej wersji dodanej do tablicy, tworzy opcję i dodajemy zdjecia
     for (let i = 0; i < parent.length; i++) {
-      let name = object.items[parent[i]].values[id[i]].name;
+      id.push(parent[i].values.value_id);
+      let name = parent[i].values[id[i]].name;
       let option = document.createElement('option');
       let set = document.createElement('picture');
       set.classList.add('set');
@@ -258,7 +260,7 @@ function createOptions(Array) {
         set.classList.add('current-set');
         current_set = set;
       }
-      for (let product of object.items[parent[i]].products) {
+      for (let product of parent[i].products) {
         for (let o = 0; o < product.images.length; o++) {
           let img = document.createElement('img');
           img.setAttribute('src', product.images[o].url);
