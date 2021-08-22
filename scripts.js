@@ -246,6 +246,7 @@ function createOptions(Array) {
   // Wyciąga kazdą wersje osobno
   for (let object of Array) {
     const parent = Object.values(object.items);
+    console.log(parent);
 
     // Dla kadej wersji dodanej do tablicy, tworzy opcję i dodajemy zdjecia
     for (let i = 0; i < parent.length; i++) {
