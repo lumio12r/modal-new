@@ -212,6 +212,7 @@ input {
 .submit:hover:enabled {
     background-color: #fff;
     border: 2px solid #0090F6;
+    color: #0090F6;
     transition: 2s;
 }
 .submit_area {
