@@ -447,7 +447,7 @@ input {
     }
     .content {
         padding: 0;
-        width: 371px;
+        width: 369px;
     }
     .product-name .title{
         font-size: 16px;
@@ -488,6 +488,9 @@ input {
         margin: 0 12px 0 0;
         width: 15px;
         height: 15px;
+    }
+    .icon-delivery {
+        margin: 0;
     }
     .available  {
         font-size: 13px;
