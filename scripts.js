@@ -91,7 +91,7 @@ function getPrice(jsonObject) {
       status = jsonObject.items[parent[i]].status;
       price.innerText = basePrice + '.00' + ' zł';
       if (stock === 0) {
-        icon.setAttribute("src", "./resources/icons/times.svg");
+        icon.setAttribute("src", "./resources/icons/close.svg");
       } else {
         icon.setAttribute("src", "./resources/icons/ok.svg");
       }
