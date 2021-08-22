@@ -418,7 +418,7 @@ input {
         padding: 35px 40px;
     }
 }
-@media (min-width: 1440px) {
+@media (min-width: 1350px) {
    .modal {
         padding: 0;
     }
