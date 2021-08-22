@@ -417,13 +417,17 @@ input {
         padding: 35px 40px;
     }
 }
-@media (width: 1440px) {
+@media (min-width: 1440px) {
+    .modal {
+        padding: 0;
+    }
     .product-box-body {
-        padding: 5rem;
-        width: 71.175%;
+        width: 745px;
+        height: 384px;
     }
     .product-box {
-        padding:1rem 1.8rem 2.2rem 0;
+        padding: 0;
+        height: 100%;
         width: 100%;
     }
     .content {
@@ -490,20 +494,5 @@ input {
         font-weight: 600;
         width: 13.625rem;
         height: 3.125rem;
-    }
-}
-@media (min-width: 1440.1px) {
-    .product-box-body {
-        padding: 14rem;
-    }
-}
-@media (min-width: 1600px) {
-    .product-box-body {
-        padding: 20rem;
-    }
-}
-@media (min-width: 1800) {
-    .product-box-body {
-        padding: 29rem;
     }
 }
