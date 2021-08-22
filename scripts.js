@@ -249,8 +249,9 @@ const id = [];
     
     // Dla kadej wersji dodanej do tablicy, tworzy opcję i dodajemy zdjecia
     for (let i = 0; i < parent.length; i++) {
-      id.push(parent.values_id);
+      id.push(parent[i].values_id);
       console.log(id);
+      let name = parent[id].values.id[i].name;
       let option = document.createElement('option');
       let set = document.createElement('picture');
       set.classList.add('set');
