@@ -500,13 +500,10 @@ input {
     .available  {
         font-size: 13px;
         margin: 2px 0 0 0;
-        width: 100%;
-    }
-    .availability {
-        width: 73%;
+        width: 102px;
     }
     .icon {
-        font-size: .9375rem;
+        font-size: 15px;
     }
     .delivery-time {
         display: flex;
