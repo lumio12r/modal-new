@@ -23,12 +23,12 @@
                     <span class="close-mobile">&times;</span>
                 </div>
                 <div class="img-box">
-                    <img src="./resources/icons/left-arrow-line-symbol.svg" class="fa-angle-left">
+                    <img src="./resources/icons/left-arrow-line-symbol.svg" class="fa-angle-left" alt="strzałka do przewijania galerii - lewa">
                     <div class="photo-box">
                     </div>
-                    <img src="./resources/icons/right-arrow-angle.svg" class="fa-angle-right">
+                    <img src="./resources/icons/right-arrow-angle.svg" class="fa-angle-right" alt="strzałka do przewijania galerii - prawa">
                 </div>
-                <div class="content">
+                <form class="content" action"/product.php" method="POST">
                     <div class="product-name">
                         <h2 class="title"></h2>
                         <span class="close">&times;</span>
@@ -46,11 +46,11 @@
                     </div>
                     <div class="availablity_delivery">
                         <div class="availability">
-                            <span class="icon"><img class="icon-available"></span><p class="available"></p>
+                            <span class="icon"><img class="icon-available" alt="ikona dostępności/niedostępności"></span><p class="available"></p>
                         </div>
                         <div class="delivery-box">
                             <div class="icon-delivery">
-                                <img src="./resources/icons/delivery-time-tool.svg">
+                                <img src="./resources/icons/delivery-time-tool.svg" alt="ikona dostawy">
                             </div>
                             <div class="delivery-info">
                                 <p>Możemy wysłać już dzisiaj!</p>
@@ -60,15 +60,15 @@
                     </div>
                     <div class="counter_submit">
                         <div class="counter_area">
-                                <button class="minus">-</button>
-                                <input class="input-counter" type="text" value="1"/>
-                                <button class="plus">+</button>
+                                <button class="minus" type="button">-</button>
+                                <input class="input-counter" type="number" value="1"/>
+                                <button class="plus" type="button">+</button>
                         </div>
                         <div class="submit_area">
-                            <button class="submit">Dodaj do koszyka</button>
+                            <button class="submit" type="submit">Dodaj do koszyka</button>
                         </div>
                     </div>
-                </div>
+                </form>
 
             </div>
         </div>
