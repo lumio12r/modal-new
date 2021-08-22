@@ -454,11 +454,13 @@ input {
     }
     .product-name .title{
         font-size: 16px;
-        width: 310px
+        width: 310px;
+        height: 30px;
     }
     .price {
         margin: 13px 0 0 0;
         font-size: 16px;
+        font-weight: bold;
     }
     .size {
         margin: 17px 0 0 0;
