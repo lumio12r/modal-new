@@ -450,7 +450,8 @@ input {
     .size-button {
         margin: 9px 15px 0 0;
         width: 99px;
-        font-size: 35px;
+        height: 35px;
+        font-size: 12px;
     }
     .colors {
         margin: 0;
