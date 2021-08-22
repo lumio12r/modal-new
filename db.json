@@ -35,20 +35,6 @@
         "amount": 0,
         "status": "Produkt niedostępny",
         "price": 199.00
-        },
-      "Z": {
-        "type": "Z",
-        "name": "Ram 256 GB",
-        "amount": 45,
-        "status": "Produkt dostępny",
-        "price": 229.00
-        },
-      "K": {
-        "type": "K",
-        "name": "Ram 512 GB",
-        "amount": 0,
-        "status": "Produkt niedostępny",
-        "price": 312.00
         }
       }
   },
