@@ -515,7 +515,10 @@ input {
     }
     .delivery-box {
         justify-content: normal;
+    }
+    .delivery-box, .availability {
         margin: 0;
+        width: 100%
     }
     .delivery-info {
         font-size: 13px;
