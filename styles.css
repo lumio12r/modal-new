@@ -424,7 +424,7 @@ input {
     .product-box-body {
         width: 745px;
         height: 384px;
-        padding: 0;
+        padding: 23px 19px 36px 40px;
     }
     .product-box {
         padding: 0;
