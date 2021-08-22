@@ -124,6 +124,9 @@
     padding: .3rem .7rem;
     font-size: .8rem;
 }
+.size-button:hover {
+    border: 2px solid #0090F6;
+}
 .colors {
     display: block;
     margin: .5rem 0 0 0;
