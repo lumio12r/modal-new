@@ -443,7 +443,7 @@ input[type=number] {
     .fa-angle-left, .fa-angle-right {
         width: 10px;
     }
-    .photo-box {
+    .img-box > .photo-box {
         width: 229px;
     }
     .product-box > .img-box {
