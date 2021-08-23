@@ -1,7 +1,9 @@
 /*jshint esversion: 8 */
 
+// zbór response w jednym obiekcie cache, by nie zabijać serwera zbyt dużą ilością zapytań
 const cache = {};
 
+// obiekt w skali globalnej, który ma usegregować zmienne, które były zadeklarowane osobono
 const data = {
   title: null,
   basePrice: null,
@@ -12,6 +14,7 @@ const data = {
   difference: null
 };
 
+// obiekt tym razem ze stanem lub odpowiedziami, by w razie wersji językowej lub zmiany treści - łatwo możnaby to zmienić w całym pliku
 const txt = {
   productAvailable: 'Produkt dostępny',
   productNotAvailable: 'Produkt niedostępny',
@@ -41,25 +44,27 @@ const increase = document.querySelector('.plus');
 const decrease = document.querySelector('.minus');
 const form = document.querySelector('form');
 
-
+// główna, która odpowiada za pobieranie danych z API
 const fetchData = async url => {
   const res = await fetch(url);
   const data = await res.json();
   return data;
 };
 
-
+// pobranie wszystkich danych do jednego obiektu cache
 const getData = async () => {
   cache.title = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/product');
   cache.sizes = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/sizes');
   cache.multiversions = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions');  
 };
 
+// funkcja, która tworzy tytuł i wstawia go na stronę
 const createTitle = async () => {
   data.title = cache.title.name;
   titleOnPage.innerText = data.title;
 };
 
+// funkcja, która tworzy przyciski do zmiany rozmiaru - w tym przypadku ilości pamięci
 const createButtons = async () => {
   const objects = Object.values(cache.sizes.items);
   for (const [i,item] of objects.entries()) {
@@ -75,12 +80,14 @@ const createButtons = async () => {
   }
 };
 
+// funkcja, która pobiera aktualną cenę, w zależności od aktywnego przycisku
 const getPrice = async () => {
   const active_option = document.querySelector('.active');
   data.basePrice = cache.sizes.items[active_option.id].price;
   price.innerText = data.basePrice + ".00" + " zł";
 };
 
+// funkcja zamieniąjąca w tytule rozmiar, czy pojemność urządzenia
 const newTitle = async () => {
   const active_option = document.querySelector('.active');
   data.option = active_option.innerText.slice(4).replace(/\s/g, '');
@@ -89,11 +96,14 @@ const newTitle = async () => {
   titleOnPage.innerText = data.title;
 };
 
+// funkcja sprawdzająca stan magazynowy danego produktu
 const checkStock = async () => {
   const active_option = document.querySelector('.active');
   data.stock = cache.sizes.items[active_option.id].amount;
 };
 
+// funkcja ustawiająca status na podstawie stanu magazynowego, a także wszystkie rzeczy będące powiązane ze statusem 
+// - czyli nieklikalność przycisków, gdy nie ma nic na stanie lub ukrycie boxa "możemy wysłać Ci już dzisiaj"
 const setStatus = async () => {
   if (data.stock === 0) {
     data.status = txt.productNotAvailable;
@@ -127,6 +137,7 @@ const setStatus = async () => {
   }
 };
 
+// tworzenie całych galerii przypisanych do jednej opcji kolorystycznej
 const createSetsImages = async () => {
   for (let object of cache.multiversions) {
     let items = Object.values(object.items);
@@ -156,6 +167,7 @@ const createSetsImages = async () => {
   }
 };
 
+// tworzenie opcji, które mają znaleźć się w select
 const createOptions = async () => {
   for (let object of cache.multiversions) {
     let items = Object.values(object.items);
@@ -170,6 +182,7 @@ const createOptions = async () => {
   }
 };
 
+// funkcja, która zajmuje się wybraniem odpowiedniej różnicy cenowej w wersjach kolorystycznych, a później zaaktualizowanie nowej ceny
 const priceDifference = async (e) => {
   for (let object of cache.multiversions) {
     let items = Object.values(object.items);
@@ -188,6 +201,7 @@ const priceDifference = async (e) => {
       }
 }}}};
 
+// funkcja zmieniająca galerie, gdy są zmieniane wersje kolorystyczne
 const changeGallery = async (e) => {
   let current = document.querySelector(".current-set");
   let color_version = document.querySelectorAll(".set");
@@ -209,6 +223,7 @@ const changeGallery = async (e) => {
   data.current_set.classList.add("current-set");
 };
 
+// funkcja, która zbiera w całość poprzednie funkcje i tworzy cały kompletny popup
 const createModal = async () => {
   await getData();
   await createTitle();
@@ -223,8 +238,8 @@ const createModal = async () => {
 };
 
 createModal();
-
-
+                                                                      /* ZBÓR EVENTLISTENERÓW  */
+// eventlistener, który zajmuje się pojawieniem się popupu
 btn.addEventListener('click', () => {
   if (modal.classList.contains('no-visible')) {
     modal.classList.remove('no-visible');
@@ -233,13 +248,18 @@ btn.addEventListener('click', () => {
   counter_input.value = 1;
 });
 
+// eventlistener, który zajmuje się sprawdzaniem, czy nie są wprowadzane dane, które będą większe lub mniejsze niż stan magazynowy
 counter_input.addEventListener('input', () => {
+  checkStock();
   if (counter_input.value > data.stock) {
     alert(txt.max + " " + data.stock);
     counter_input.value = data.stock;
   }
+  if (counter_input.value < 1) {
+    alert(txt.min);
 });
 
+// eventlisteneter, który zamuje się sprawdzaniem, czy nie jest klikany, któryś z buttonów z rozmiarem i ewentualne zaaktualizowanie danych
 sizeContainer.addEventListener('click', (e) => {
   let current = document.querySelector('.active');
   if (current === e.target) {
@@ -257,8 +277,7 @@ sizeContainer.addEventListener('click', (e) => {
   }
 });
 
-
-
+// eventlistener, który zajmuje się przewijaniem zdjęc w tył w galerii w jednej opcji kolorystycznej
 previous_photo.addEventListener('click', () => {
   let current_photo = data.current_set.querySelector('.current-photo');
   current_photo.classList.remove('current-photo');
@@ -268,6 +287,8 @@ previous_photo.addEventListener('click', () => {
   current_photo.previousSibling.classList.add('current-photo');
 });
 
+
+// eventlistener, który zajmuje się przewijaniem zdjęc w przód w galerii w jednej opcji kolorystycznej
 next_photo.addEventListener('click', () => {
   let current_photo = data.current_set.querySelector('.current-photo');
   current_photo.classList.remove('current-photo');
@@ -278,13 +299,17 @@ next_photo.addEventListener('click', () => {
   }
 });
 
+// event onclick, który zamyka popup za pomocą przycisku na tabletach i komputerach
 close.onclick = () => {
   modal.classList.add('no-visible');
 };
+  
+// event onclick, który zamyka popup za pomocą przycisku na telefonach
 close_mobile.onclick = () => {
   modal.classList.add('no-visible');
 };
 
+// event onclick, który zamyka modal, gdy kliknie się na wyszarzoną część
 window.onclick = (e) => {
   if (modal.classList.contains('visible')) {
     if (e.target == modal) {
@@ -294,6 +319,7 @@ window.onclick = (e) => {
   }
 };
 
+// eventlistener, który odpowiada za wysłanie formularza
 form.addEventListener('submit', e => {
   e.preventDefault();
   let current = document.querySelector('.active');
@@ -308,14 +334,15 @@ form.addEventListener('submit', e => {
 
 });
 
+// eventlistener, który odpowiada za zmianę ceny i zmianę galerii po wybraniu odpowiedniej wersji kolorystycznej
 options.addEventListener('change', (e) => {
   priceDifference(e.target);
   changeGallery(e.target);
 });
 
+// eventlistner, który odpowiada za zwiększanie i obsługę przycisku zwiększającego ilości produktów
 increase.addEventListener('click', () => {
   checkStock();
-  console.log(data.stock);
   if (counter_input.value == data.stock) {
     alert(txt.max + " " + data.stock);
     counter_input.value = data.stock;
@@ -324,6 +351,7 @@ increase.addEventListener('click', () => {
   }
 });
 
+// eventlistner, który odpowiada za zwiększanie i obsługę przycisku zmniejszająć ilość produktów
 decrease.addEventListener('click', () => {
   if (counter_input.value <= 1) {
     alert(txt.min);
