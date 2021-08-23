@@ -115,6 +115,7 @@ const setStatus = async () => {
     counter_input.value = 0;
     increase.disabled = true;
     decrease.disabled = true;
+    available.style.width = "125px";
     increase.classList.add('disabled');
     decrease.classList.add('disabled');
     counter_input.classList.add('disabled');
