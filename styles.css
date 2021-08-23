@@ -526,7 +526,7 @@ input[type=number] {
     .input-counter {
         width:100%;
     }
-    .submit-area {
+    .submit_area {
         width: 218px;
         height: 50px;
         justify-content: normal;
