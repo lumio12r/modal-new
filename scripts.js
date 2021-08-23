@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/*jshint esversion: 8 */
 
 const cache = {};
 
@@ -10,7 +10,7 @@ const data = {
   option: null,
   current_set: null,
   difference: null
-}
+};
 
 const txt = {
   productAvailable: 'Produkt dostępny',
@@ -46,19 +46,19 @@ const fetchData = async url => {
   const res = await fetch(url);
   const data = await res.json();
   return data;
-}
+};
 
 
 const getData = async () => {
   cache.title = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/product');
   cache.sizes = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/sizes');
   cache.multiversions = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions');  
-}
+};
 
 const createTitle = async () => {
   data.title = cache.title.name;
   titleOnPage.innerText = data.title;
-}
+};
 
 const createButtons = async () => {
   const objects = Object.values(cache.sizes.items);
@@ -73,26 +73,26 @@ const createButtons = async () => {
     button.setAttribute('id', item.type);
     sizeContainer.appendChild(button);
   }
-}
+};
 
 const getPrice = async () => {
   const active_option = document.querySelector('.active');
   data.basePrice = cache.sizes.items[active_option.id].price;
   price.innerText = data.basePrice + ".00" + " zł";
-}
+};
 
 const newTitle = async () => {
   const active_option = document.querySelector('.active');
-  option = active_option.innerText.slice(4).replace(/\s/g, '');
+  data.option = active_option.innerText.slice(4).replace(/\s/g, '');
   let toReplace = data.title.slice(29, -10);
-  data.title = data.title.replace(toReplace, option);
+  data.title = data.title.replace(toReplace, data.option);
   titleOnPage.innerText = data.title;
-}
+};
 
 const checkStock = async () => {
   const active_option = document.querySelector('.active');
   data.stock = cache.sizes.items[active_option.id].amount;
-}
+};
 
 const setStatus = async () => {
   if (data.stock === 0) {
@@ -125,7 +125,7 @@ const setStatus = async () => {
     delivery_box.classList.remove('no-visible','visible-flex');
     delivery_box.classList.add('visible-flex');
   }
-}
+};
 
 const createSetsImages = async () => {
   for (let object of cache.multiversions) {
@@ -136,9 +136,9 @@ const createSetsImages = async () => {
       set.classList.add('set');
       if (i === 0) {
         set.classList.add('current-set');
-        current_set = set;
+        data.current_set = set;
       }
-      for (let [o, product] of products.entries()) {
+      for (let product of products) {
         let images = Object.values(product.images);
         for (let [z, image] of images.entries()) {
           let img = document.createElement("img");
@@ -154,13 +154,13 @@ const createSetsImages = async () => {
       }
     }
   }
-}
+};
 
 const createOptions = async () => {
   for (let object of cache.multiversions) {
     let items = Object.values(object.items);
-    for (let [i,item] of items.entries()) {
-      let id = item.values_id
+    for (let item of items) {
+      let id = item.values_id;
       let name = item.values[id].name;
       let option = document.createElement("option");
       option.innerText = name;
@@ -168,25 +168,25 @@ const createOptions = async () => {
       options.appendChild(option);
     }
   }
-}
+};
 
 const priceDifference = async (e) => {
   for (let object of cache.multiversions) {
     let items = Object.values(object.items);
-    for (let [i,item] of items.entries()) {
-      value_id = item.values_id;
+    for (let item of items) {
+      let value_id = item.values_id;
       let products = Object.values(item.products);
-      for (let [o, product] of products.entries()) {
+      for (let product of products) {
         if (value_id == e.value ) {
         data.difference = parseFloat(product.price_difference);
-        if (difference === 0) {
+        if (data.difference === 0) {
           price.innerText = data.basePrice + ".00 zł";
         } else {
-          let newPrice = data.basePrice + difference;
+          let newPrice = data.basePrice + data.difference;
           price.innerText = newPrice + ".00 zł";
       }
       }
-}}}}
+}}}};
 
 const changeGallery = async (e) => {
   let current = document.querySelector(".current-set");
@@ -201,13 +201,13 @@ const changeGallery = async (e) => {
       set = 1;
       break;
     case "59":
-      set = 2
+      set = 2;
       break;
   }
   current.classList.remove("current-set");
-  current_set = color_version[set];
-  current_set.classList.add("current-set");
-}
+  data.current_set = color_version[set];
+  data.current_set.classList.add("current-set");
+};
 
 const createModal = async () => {
   await getData();
@@ -220,12 +220,12 @@ const createModal = async () => {
   await createSetsImages();
   await createOptions();
   console.log(cache);
-}
+};
 
 createModal();
 
 
-btn.addEventListener('click', (e) => {
+btn.addEventListener('click', () => {
   if (modal.classList.contains('no-visible')) {
     modal.classList.remove('no-visible');
     modal.classList.add('visible');
@@ -252,31 +252,29 @@ sizeContainer.addEventListener('click', (e) => {
     checkStock();
     setStatus();
     options[0].selected = true;
-    current_set.classList.remove('current-set');
+    data.current_set.classList.remove('current-set');
     photo_box.children[0].classList.add('current-set');
   }
 });
 
 
 
-previous_photo.addEventListener('click', (e) => {
-  let current_photo = current_set.querySelector('.current-photo');
+previous_photo.addEventListener('click', () => {
+  let current_photo = data.current_set.querySelector('.current-photo');
   current_photo.classList.remove('current-photo');
-
-  current_set;
   if (current_photo.previousSibling === null) {
-    current_set.lastChild.classList.add('current-photo');
+    data.current_set.lastChild.classList.add('current-photo');
   }
   current_photo.previousSibling.classList.add('current-photo');
 });
 
-next_photo.addEventListener('click', (e) => {
-  let current_photo = current_set.querySelector('.current-photo');
+next_photo.addEventListener('click', () => {
+  let current_photo = data.current_set.querySelector('.current-photo');
   current_photo.classList.remove('current-photo');
   try {
     current_photo.nextSibling.classList.add('current-photo');
   } catch (error) {
-    current_set.firstChild.classList.add('current-photo');
+    data.current_set.firstChild.classList.add('current-photo');
   }
 });
 
@@ -300,11 +298,11 @@ form.addEventListener('submit', e => {
   e.preventDefault();
   let current = document.querySelector('.active');
   modal.classList.add('no-visible');
-  alert(`Twoj produkt ${data.title} w cenie ${data.basePrice-data.difference}.00 zł za sztukę w ilości ${counter_input.value} została dodana do Twojego koszyka`)
+  alert(`Twoj produkt ${data.title} w cenie ${data.basePrice-data.difference}.00 zł za sztukę w ilości ${counter_input.value} została dodana do Twojego koszyka`);
   current.classList.remove('active');
   sizeContainer.firstChild.classList.add('active');
   options[0].selected = true;
-  current_set.classList.remove('current-set');
+  data.current_set.classList.remove('current-set');
   photo_box.children[0].classList.add('current-set');
   getPrice();
 
@@ -332,4 +330,4 @@ decrease.addEventListener('click', () => {
   } else {
     --counter_input.value;
   }
-})
+});
