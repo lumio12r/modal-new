@@ -424,6 +424,9 @@ input[type=number] {
    .modal {
         padding: 0;
     }
+    .close {
+        margin-left: 43px;
+    }
     .product-box-body {
         width: 745px;
         height: 384px;
