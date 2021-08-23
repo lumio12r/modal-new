@@ -1,8 +1,22 @@
 /*jshint esversion: 6 */
 
 const cache = {};
+
+const data = {
+  title: null,
+  basePrice: null,
+  stock: null,
+  status: null,
+  option: null,
+  current_set: null,
+  difference: null
+}
+
 const txt = {
   productAvailable: 'Produkt dostępny',
+  productNotAvailable: 'Produkt niedostępny',
+  max: 'Maksymalny ilość produktu to:',
+  min: 'Liczba nie może być równa lub mniejsza niż zero'
 };
 
 // przypisanie konkretnych lokacji do stałych
@@ -27,303 +41,190 @@ const increase = document.querySelector('.plus');
 const decrease = document.querySelector('.minus');
 const form = document.querySelector('form');
 
-// deklaracja zmiennych globalnych
 
-let basePrice;
-let stock;
-let status;
-let title;
-let option;
-let current_set;
-
-/* 
-funkcja getJson odpowiadająca za pobranie danych z fake API 
-(postawione za pomocą komendy json-server --watch xbox.json --port 8000) 
-*/
-
-function getJson(url, callback, e) {
-  let object;
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => (object = data))
-    .then(() => callback(object, e));
+const fetchData = async url => {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
 }
 
-// zbiór fukcji odpowiadających za pobranie danych i użycie ich do manipulowania DOM
 
-function createTitle(jsonObject) {
-  title = jsonObject.name;
-  titleOnPage.innerText = title;
-
-  cache.title = jsonObject;
+const getData = async () => {
+  cache.title = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/product');
+  cache.sizes = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/sizes');
+  cache.multiversions = await fetchData('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions');  
 }
 
-function createButtons(jsonObject) {
-  let parent = [];
-  for (let item in jsonObject.items) {
-    parent.push(item);
-  }
-  for (let i = 0; i < parent.length; i++) {
+const createTitle = async () => {
+  data.title = cache.title.name;
+  titleOnPage.innerText = data.title;
+}
+
+const createButtons = async () => {
+  const objects = Object.values(cache.sizes.items);
+  for (const [i,item] of objects.entries()) {
     let button = document.createElement('button');
-    button.innerText = jsonObject.items[parent[i]].name;
-    if (i === 0) {
+    button.innerText = item.name;
+    if (i === 2) {
       button.classList.add('active');
     }
     button.classList.add('size-button');
-    button.setAttribute('id', parent[i]);
+    button.setAttribute('type', 'button');
+    button.setAttribute('id', item.type);
     sizeContainer.appendChild(button);
   }
 }
 
-function getPrice(jsonObject) {
-  let parent = [];
-  for (let item in jsonObject.items) {
-    parent.push(item);
-  }
-  for (let i = 0; i < parent.length; i++) {
-    if (sizeContainer.children[i].classList.contains('active')) {
-      option = sizeContainer.children[i].innerText;
-      option = option.slice(4).replace(/\s/g, '');
-      let toReplace = title.slice(29, -10);
-      title = title.replace(toReplace, option);
-      titleOnPage.innerText = title;
-      basePrice = jsonObject.items[parent[i]].price;
-      stock = jsonObject.items[parent[i]].amount;
-      status = jsonObject.items[parent[i]].status;
-      price.innerText = basePrice + '.00' + ' zł';
-      if (stock === 0) {
-        icon.setAttribute("src", "./resources/icons/close.svg");
-      } else {
-        icon.setAttribute("src", "./resources/icons/ok.svg");
-      }
-      available.innerText = status;
+const getPrice = async () => {
+  const active_option = document.querySelector('.active');
+  data.basePrice = cache.sizes.items[active_option.id].price;
+  price.innerText = data.basePrice + ".00" + " zł";
+}
 
-      if (status == 'Produkt niedostępny') {
-        button_submit.disabled = true;
-        counter_input.disabled = true;
-        counter_input.value = 0;
-        increase.disabled = true;
-        decrease.disabled = true;
-        increase.classList.add('disabled');
-        decrease.classList.add('disabled');
-        counter_input.classList.add('disabled');
-      } else {
-        button_submit.disabled = false;
-        counter_input.disabled = false;
-        counter_input.value = 1;
-        increase.disabled = false;
-        decrease.disabled = false;
-        increase.classList.remove('disabled');
-        decrease.classList.remove('disabled');
-        counter_input.classList.remove('disabled');
-        increase.onclick = () => {
-          if (counter_input.value == stock) {
-            alert(`Maksymalny ilość produktu to: ${stock}`);
-          } else {
-            counter_input.value++;
+const newTitle = async () => {
+  const active_option = document.querySelector('.active');
+  option = active_option.innerText.slice(4).replace(/\s/g, '');
+  let toReplace = data.title.slice(29, -10);
+  data.title = data.title.replace(toReplace, option);
+  titleOnPage.innerText = data.title;
+}
+
+const checkStock = async () => {
+  const active_option = document.querySelector('.active');
+  data.stock = cache.sizes.items[active_option.id].amount;
+}
+
+const setStatus = async () => {
+  if (data.stock === 0) {
+    data.status = txt.productNotAvailable;
+    icon.removeAttribute("src");
+    icon.setAttribute("src", "./resources/icons/close.svg");
+    available.innerText = data.status;
+    button_submit.disabled = true;
+    counter_input.disabled = true;
+    counter_input.value = 0;
+    increase.disabled = true;
+    decrease.disabled = true;
+    increase.classList.add('disabled');
+    decrease.classList.add('disabled');
+    counter_input.classList.add('disabled');
+    delivery_box.classList.remove('no-visible','visible-flex');
+    delivery_box.classList.add('no-visible');
+  } else {
+    icon.setAttribute("src", "./resources/icons/ok.svg");
+    data.status = txt.productAvailable;
+    available.innerText = data.status;
+    button_submit.disabled = false;
+    counter_input.disabled = false;
+    counter_input.value = 1;
+    increase.disabled = false;
+    decrease.disabled = false;
+    increase.classList.remove('disabled');
+    decrease.classList.remove('disabled');
+    counter_input.classList.remove('disabled');
+    delivery_box.classList.remove('no-visible','visible-flex');
+    delivery_box.classList.add('visible-flex');
+  }
+}
+
+const createSetsImages = async () => {
+  for (let object of cache.multiversions) {
+    let items = Object.values(object.items);
+    for (let [i,item] of items.entries()) {
+      let products = Object.values(item.products);
+      let set = document.createElement("div");
+      set.classList.add('set');
+      if (i === 0) {
+        set.classList.add('current-set');
+        current_set = set;
+      }
+      for (let [o, product] of products.entries()) {
+        let images = Object.values(product.images);
+        for (let [z, image] of images.entries()) {
+          let img = document.createElement("img");
+          img.setAttribute("src", image.url);
+          img.setAttribute("alt", image.alt);
+          img.classList.add('photo');
+          if (z === 0) {
+            img.classList.add('current-photo');
           }
-        };
-        decrease.onclick = () => {
-          if (counter_input.value <= 1) {
-            alert(txt.productAvailable);
-          } else {
-            --counter_input.value;
-          }
-        };
+          set.appendChild(img);
+        }
+        photo_box.appendChild(set);
       }
     }
   }
 }
 
-const STATUS_AVAILABLE = 'Produkt niedostępny';
-
-function changePrice(jsonObject, e) {
-  const parent = [];
-  for (const item in jsonObject.items) {
-    parent.push(item);
+const createOptions = async () => {
+  for (let object of cache.multiversions) {
+    let items = Object.values(object.items);
+    for (let [i,item] of items.entries()) {
+      let id = item.values_id
+      let name = item.values[id].name;
+      let option = document.createElement("option");
+      option.innerText = name;
+      option.setAttribute("value", id);
+      options.appendChild(option);
+    }
   }
-  for (let i = 0; i < parent.length; i++) {
-    let current = document.querySelector('.active');
-    if (sizeContainer.children[i] == e.target) {
-      if (sizeContainer.children[i].classList.contains('active') && e.target.classList.contains('active')) {
-      } else {
-        current.classList.remove('active');
-        e.target.classList.add('active');
-        option = sizeContainer.children[i].innerText;
-        option = option.slice(4).replace(/\s/g, '');
-        let toReplace = title.slice(29, -10);
-        title = title.replace(toReplace, option);
-        titleOnPage.innerText = title;
-        basePrice = jsonObject.items[parent[i]].price;
-        stock = jsonObject.items[parent[i]].amount;
-        status = jsonObject.items[parent[i]].status;
-        price.innerText = basePrice + '.00' + ' zł';
-        options[0].selected = true;
-        current_set.classList.remove('current-set');
-        photo_box.children[0].classList.add('current-set');
+}
 
-        if (icon.classList.contains('fa-times')) {
-          icon.classList.remove('fa-times');
-          if (status == STATUS_AVAILABLE) {
-            icon.classList.add('fa-times');
-          } else {
-            icon.classList.add('fa-check');
-          }
-        }
-
-        if (icon.classList.contains('fa-check')) {
-          icon.classList.remove('fa-check');
-          if (status === STATUS_AVAILABLE) {
-            icon.classList.add('fa-times');
-          } else {
-            icon.classList.add('fa-check');
-          }
-        }
-
-        if (status === STATUS_AVAILABLE) {
-          button_submit.disabled = true;
-          counter_input.disabled = true;
-          counter_input.value = 0;
-          increase.disabled = true;
-          decrease.disabled = true;
-          increase.classList.add('disabled');
-          decrease.classList.add('disabled');
-          counter_input.classList.add('disabled');
-
-          if (delivery_box.classList.contains('no-visible')) {
-            delivery_box.classList.remove('no-visible');
-          }
-
-          if (delivery_box.classList.contains('visible-flex')) {
-            delivery_box.classList.remove('visible-flex');
-          }
-          delivery_box.classList.add('no-visible');
+const priceDifference = async (e) => {
+  for (let object of cache.multiversions) {
+    let items = Object.values(object.items);
+    for (let [i,item] of items.entries()) {
+      value_id = item.values_id;
+      let products = Object.values(item.products);
+      for (let [o, product] of products.entries()) {
+        if (value_id == e.value ) {
+        data.difference = parseFloat(product.price_difference);
+        if (difference === 0) {
+          price.innerText = data.basePrice + ".00 zł";
         } else {
-          button_submit.disabled = false;
-          counter_input.disabled = false;
-          counter_input.value = 1;
-          increase.disabled = false;
-          decrease.disabled = false;
-          increase.classList.remove('disabled');
-          decrease.classList.remove('disabled');
-          counter_input.classList.remove('disabled');
-          increase.onclick = () => {
-            if (counter_input.value == stock) {
-              alert(`Maksymalny ilość produktu to: ${stock}`);
-            } else {
-              counter_input.value++;
-            }
-          };
-          decrease.onclick = () => {
-            if (counter_input.value <= 1) {
-              alert('Liczba nie może być równa lub mniejsza niż zero');
-            } else {
-              --counter_input.value;
-            }
-          };
-          if (delivery_box.classList.contains('no-visible')) {
-            delivery_box.classList.remove('no-visible');
-          }
-          if (delivery_box.classList.contains('visible-flex')) {
-            delivery_box.classList.remove('visible-flex');
-          }
-          delivery_box.classList.add('visible-flex');
-        }
-
-        available.innerText = status;
-        break;
+          let newPrice = data.basePrice + difference;
+          price.innerText = newPrice + ".00 zł";
       }
-    }
+      }
+}}}}
+
+const changeGallery = async (e) => {
+  let current = document.querySelector(".current-set");
+  let color_version = document.querySelectorAll(".set");
+  console.log(e);
+  let set;
+  switch (e.value) {
+    case "61":
+      set = 0;
+      break;
+    case "60":
+      set = 1;
+      break;
+    case "59":
+      set = 2
+      break;
   }
+  current.classList.remove("current-set");
+  current_set = color_version[set];
+  current_set.classList.add("current-set");
 }
 
-/**
- * Tworzy znaczniki option dla selecta
- * @param {*} Array Tablica strinówg
- */
-function createOptions (Array) {
-    let parent = [];
-    let id = [];
-    for (let object of Array) {
-        for (let item in object.items) {
-            parent.push(item);
-        }
-        for (let i = 0; i < parent.length; i++) {
-            id.push(object.items[parent[i]].values_id);
-            let name = object.items[parent[i]].values[id[i]].name;
-            let option = document.createElement("option");
-            let set = document.createElement("div");
-            set.classList.add('set');
-            if (i === 0) {
-                set.classList.add('current-set');
-                current_set = set;
-            }
-            for (let product of object.items[parent[i]].products) {
-                    for (let o = 0; o < product.images.length; o++) {
-                        let img = document.createElement("img");
-                        img.setAttribute("src", product.images[o].url);
-                        img.setAttribute("alt", product.images[o].alt);
-                        img.classList.add('photo');
-                        if (o === 0) {
-                            img.classList.add('current-photo');
-                        }
-                        set.appendChild(img);
-                    }
-                    photo_box.appendChild(set);
-            }
-            option.innerText = name;
-            option.setAttribute("value", id[i]);
-            options.appendChild(option);
-        }
-    }
-
+const createModal = async () => {
+  await getData();
+  await createTitle();
+  createButtons();
+  getPrice();
+  await newTitle();
+  await checkStock();
+  await setStatus();
+  await createSetsImages();
+  await createOptions();
+  console.log(cache);
 }
-function changeColor (Array, e) {
-    let parent = [];
-    let current = document.querySelector(".current-set");
-    let color_version = document.querySelectorAll(".set");
 
-    for (let object of Array) {
-        for (let item in object.items) {
-            parent.push(item);
-        }
-        for (let i = 0; i < parent.length; i++) {
-            for (let product of object.items[parent[i]].products)
-            if (options.children[i] == e.target ) {
-                let difference = parseFloat(product.price_difference);
-                current.classList.remove("current-set");
-                current_set = color_version[i];
-                current_set.classList.add("current-set");
-                if (difference === 0) {
-                    price.innerText = basePrice + ".00 zł";
-                } else {
-                    let newPrice = basePrice + difference;
-                    price.innerText = newPrice + ".00 zł";
-                }
-            }
-        }
-    }
+createModal();
 
-}
-counter_input.addEventListener('input', function (e) {
-  if (counter_input.value > stock) {
-    alert(`Maksymalna ilość produktu to: ${stock}`);
-    counter_input.value = stock;
-  }
-});
 
-// funkcje odpowiadające za pojawianie i znikanie boxa z produktem
-
-btn.addEventListener(
-  'click',
-  (e) => {
-    getJson('https://my-json-server.typicode.com/lumio12r/modal-new/product', createTitle);
-    getJson('https://my-json-server.typicode.com/lumio12r/modal-new/sizes', createButtons);
-    getJson('https://my-json-server.typicode.com/lumio12r/modal-new/sizes', getPrice);
-    getJson('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions', createOptions);
-  },
-  { once: true },
-);
 btn.addEventListener('click', (e) => {
   if (modal.classList.contains('no-visible')) {
     modal.classList.remove('no-visible');
@@ -331,22 +232,32 @@ btn.addEventListener('click', (e) => {
   }
   counter_input.value = 1;
 });
-/* alternatywna wersja do tej ^
-        document.addEventListener('mouseover', e => {
-            getJson('http://my-json-server.typicode.com/lumio12r/modal/sizes', changePrice, e)
-        });*/
+
+counter_input.addEventListener('input', () => {
+  if (counter_input.value > data.stock) {
+    alert(txt.max + " " + data.stock);
+    counter_input.value = data.stock;
+  }
+});
 
 sizeContainer.addEventListener('click', (e) => {
-  if (cache.price) {
-    return;
+  let current = document.querySelector('.active');
+  if (current === e.target) {
+
+  } else {
+    current.classList.remove('active');
+    e.target.classList.add('active');
+    getPrice();
+    newTitle();
+    checkStock();
+    setStatus();
+    options[0].selected = true;
+    current_set.classList.remove('current-set');
+    photo_box.children[0].classList.add('current-set');
   }
-
-  getJson('https://my-json-server.typicode.com/lumio12r/modal-new/sizes', changePrice, e);
 });
 
-options.addEventListener('onchange', (e) => {
-  getJson('https://my-json-server.typicode.com/lumio12r/modal-new/multiversions', changeColor, e);
-});
+
 
 previous_photo.addEventListener('click', (e) => {
   let current_photo = current_set.querySelector('.current-photo');
@@ -387,5 +298,38 @@ window.onclick = (e) => {
 
 form.addEventListener('submit', e => {
   e.preventDefault();
+  let current = document.querySelector('.active');
+  modal.classList.add('no-visible');
+  alert(`Twoj produkt ${data.title} w cenie ${data.basePrice-data.difference}.00 zł za sztukę w ilości ${counter_input.value} została dodana do Twojego koszyka`)
+  current.classList.remove('active');
+  sizeContainer.firstChild.classList.add('active');
+  options[0].selected = true;
+  current_set.classList.remove('current-set');
+  photo_box.children[0].classList.add('current-set');
+  getPrice();
+
 });
 
+options.addEventListener('change', (e) => {
+  priceDifference(e.target);
+  changeGallery(e.target);
+});
+
+increase.addEventListener('click', () => {
+  checkStock();
+  console.log(data.stock);
+  if (counter_input.value == data.stock) {
+    alert(txt.max + " " + data.stock);
+    counter_input.value = data.stock;
+  } else {
+    counter_input.value++;
+  }
+});
+
+decrease.addEventListener('click', () => {
+  if (counter_input.value <= 1) {
+    alert(txt.min);
+  } else {
+    --counter_input.value;
+  }
+})
