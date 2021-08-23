@@ -143,6 +143,10 @@ btn:hover {
     font-size: .9rem;
     margin: 1.2rem 0 0 0;
 }
+.icon > img {
+        width: 15px;
+        height: 13px
+}
 .options {
     margin: .4rem 0 0 0;
     height: 35px;
@@ -507,10 +511,6 @@ input[type=number] {
         font-size: 13px;
         margin: 2px 0 0 0;
         width: 102px;
-    }
-    .icon > img {
-        width: 15px;
-        height: 13px
     }
     .delivery-time {
         display: flex;
