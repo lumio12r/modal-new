@@ -245,7 +245,7 @@ input {
     display: none;
 }
 .available {
-    margin: 0;
+    margin: 5px 0 0 0;
 }
 .fa-check {
     color: #5CBA0E;
