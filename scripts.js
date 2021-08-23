@@ -70,7 +70,7 @@ const createButtons = async () => {
   for (const [i,item] of objects.entries()) {
     let button = document.createElement('button');
     button.innerText = item.name;
-    if (i === 2) {
+    if (i === 0) {
       button.classList.add('active');
     }
     button.classList.add('size-button');
