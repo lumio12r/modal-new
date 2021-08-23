@@ -257,7 +257,7 @@ counter_input.addEventListener('input', () => {
   }
   if (counter_input.value < 1) {
     alert(txt.min);
-});
+}});
 
 // eventlisteneter, który zamuje się sprawdzaniem, czy nie jest klikany, któryś z buttonów z rozmiarem i ewentualne zaaktualizowanie danych
 sizeContainer.addEventListener('click', (e) => {
