@@ -552,12 +552,9 @@ input[type=number] {
         justify-content: normal;
     }
     .submit {
-        font-size: .9375rem;
-        padding: 19px 54px 16px 46px;
+        font-size: 15px;
         font-weight: 600;
         width: 218px;
         height: 50px;
     }
-    .submit:hover:enabled {
-        padding 17px 52px 14px 44px;
 }
