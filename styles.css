@@ -446,6 +446,10 @@ input[type=number] {
     .photo-box {
         width: 229px;
     }
+    .product-box > .img-box {
+        padding-right: 20px;
+        padding-left: 0px;
+    }
     .product-box > .content {
         padding: 0;
         width: 369px;
