@@ -430,9 +430,21 @@ input[type=number] {
         padding: 0;
     }
     .product-box {
-        padding: 23px 19px 36px 40px;
+        padding: 23px 19px 36px 20px;
         height: 100%;
         width: 100%;
+    }
+    .fa-angle-left {
+        margin: 0 10px 0 0;
+    }
+    .fa-angle-right {
+        margin: 0 0 0 10px;
+    }
+    .fa-angle-left, .fa-angle-right {
+        width: 10px;
+    }
+    .photo-box {
+        width: 229px;
     }
     .product-box > .content {
         padding: 0;
